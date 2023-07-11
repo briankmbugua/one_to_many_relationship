@@ -1,0 +1,3 @@
+# One-to-many relationships represent the relationship between two entities where one entity is related to multiple instances of the other entity.In a database context, it means that one row in one table is related to multiple rows in another table.For example one customer may have multiple orders, but each order belongs to only one customer.
+# Example one post many comments so comments is the many side of the relationship
+# In SQLAlchemy, one-to-many relationships are defined using a Foreign Key on the many side of the relationship, which points to the primary key of the one side.In the example above the "order" table would have a foreign key column that refers to the primary key of the "customer" table.
