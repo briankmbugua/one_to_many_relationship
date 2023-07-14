@@ -26,3 +26,12 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'<Comment "self.content[:20]...">'
+
+
+# Displaying All Posts
+# create a route and a template to display all the posts in the database on the index page
+
+@app.route('/')
+def index():
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts)
