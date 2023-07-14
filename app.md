@@ -34,3 +34,13 @@ Post model is the post table
 - This way you can acces the post the comment was posted on using a post attribute.For Example, if you have a comment object in a variable called comment,You will be able to acces the post the comment belongs to using the ```comment.post```.
 # __repr__
 the __  __repr__ __ function allows you to give each object a string representation to recognize it for debugging purposes.
+
+# Comment model
+The Comment model represents the comment table.
+- id: The comment ID. you define it as an integer with db.Integer.primary_key=True
+- content: The comment's content. db.Text indicates the column holds long texts.
+- post_id: An integer foreign key you construct using db.Foreignkey() class, which is a key that links a table with another, using that table's primary key.
+- This links a comment to a post using the primary key of the post, which is its ID.
+- The post table is a parent table, which indicates that each post has many comments.
+- The comment table is a child table.
+- Each comment is related to a parent post using the post's ID. Therefore, each comment has a post_id column that can be used to access the post the comment was posted on.
