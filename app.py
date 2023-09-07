@@ -35,3 +35,40 @@ class Comment(db.Model):
 def index():
     posts = Post.query.all()
     return render_template('index.html', posts=posts)
+
+
+# Displaying a single Post and its Comments
+# create a route to and template to display the details of each post on a dedicated page, and the post's comments below it.
+
+@app.route('/<int:post_id>/', methods=('GET', 'POST'))
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        comment = Comment(content=request.form['content'], post=post)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('post', post_id=post.id))
+    return render_template('post.html', post=post)
+
+
+# Displaying all comments
+@app.route('/comments/')
+def comments():
+    comments = Comment.query.order_by(Comment.id.desc()).all()
+    return render_template('comments.html', comments=comments)
+
+
+# Deleting Comments
+# add a delete comment button below each comment to allow users to delete unwanted comments
+
+@app.post('/comments/<int:comment_id>/delete')
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    post_id = comment.post.id
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('post', post_id=post_id))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
